@@ -1,0 +1,43 @@
+-- Tabela Alunos
+CREATE TABLE alunos (
+    id_aluno INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    data_nascimento DATE NOT NULL,
+    cpf TEXT UNIQUE NOT NULL,
+    email TEXT
+);
+
+-- Tabela Professores
+CREATE TABLE professores (
+    id_professor INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    especialidade TEXT,
+    email TEXT
+);
+
+-- Tabela Cursos
+CREATE TABLE cursos (
+    id_curso INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    carga_horaria INTEGER NOT NULL
+);
+
+-- Tabela Turmas
+CREATE TABLE turmas (
+    id_turma INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    id_curso INTEGER,
+    id_professor INTEGER,
+    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
+    FOREIGN KEY (id_professor) REFERENCES professores(id_professor)
+);
+
+-- Tabela Matrículas
+CREATE TABLE matriculas (
+    id_matricula INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_aluno INTEGER,
+    id_turma INTEGER,
+    data_matricula DATE NOT NULL,
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno),
+    FOREIGN KEY (id_turma) REFERENCES turmas(id_turma)
+);
